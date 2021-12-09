@@ -5,30 +5,41 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class Conta {
+public abstract class Conta {
     private String nome;
     private String cpf;
     private double rendaMensal;
     private int numeroConta=0;
     private String agencia;
     private double saldo;
-
-
-    ArrayList<Transacao>listaTransacoes = new ArrayList<Transacao>();
+    private ArrayList<Transacao>listaTransacoes = new ArrayList<>();
+    private final double limite = 0.0;
 
     class Transacao{
+        private String tipo;
         private String data;
         private String contaOrigem;
         private String contaDestino;
         private double valor;
 
-        public Transacao(String ContaOrigem,String contaDestino,double valor) {
-            this.contaOrigem = contaOrigem;
-            this.contaDestino = contaDestino;
+        @Override
+        public String toString() {
+            return data +" " + tipo +
+                    " conta de origem = " + contaOrigem +
+                    " ,conta de destino = " + contaDestino +
+                    " ,valor = " + valor;
+        }
+
+        public Transacao(String tipo, String origem, String destino, double valor) {
+            this.tipo = tipo;
+            this.contaOrigem = origem;
+            this.contaDestino = destino;
             LocalDateTime a = LocalDateTime.now();
             DateTimeFormatter b = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             this.data = a.format(b);
             this.valor = valor;
+
+
         }
     }
 
@@ -118,28 +129,61 @@ public class Conta {
     }
 
     public void saque(double decremento){
-        this.saldo = this.saldo - decremento;
-        Transacao s = new Transacao(this.nome, this.nome, decremento);
+        if(decremento <= (this.saldo + getLimite())){
+            this.saldo = this.saldo - decremento;
+        }else{
+            System.out.println("o saldo foi insuficiente");
+        }
+        Transacao s = new Transacao("saque",this.nome, this.nome, decremento);
         listaTransacoes.add(s);
     }
 
+
+
     public void deposito(double incremento){
         this.saldo = this.saldo + incremento;
-        Transacao d = new Transacao(this.nome, this.nome, incremento);
+        Transacao d = new Transacao("deposito",this.nome, this.nome, incremento);
         listaTransacoes.add(d);
     }
 
     public void transferir(Conta c1, Conta c2, double valor){
         c1.saldo = c1.saldo - valor;
         c2.saldo = c2.saldo + valor;
-        Transacao t = new Transacao(c1.nome, c2.nome, valor);
+        Transacao t = new Transacao("transferencia",c1.nome, c2.nome, valor);
         listaTransacoes.add(t);
     }
 
-
+    public void alteraDados(String nome, double rendaMensal,String agencia) {
+        this.nome = nome;
+        this.rendaMensal = rendaMensal;
+        this.agencia = agencia;
+    }
 
     public void imprimeSaldo(){
         System.out.println("Saldo atual: " + this.saldo);
+    }
+
+    public double getRendaMensal() {
+        return rendaMensal;
+    }
+
+    public double getLimite() {
+        return limite;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public ArrayList<Transacao> getListaTransacoes() {
+        return listaTransacoes;
+    }
+
+    public void extrato(){
+        for (Conta.Transacao a : this.getListaTransacoes()) {
+            System.out.println(a);
+        }
+        System.out.println("Saldo atual: " + this.getSaldo());
     }
 
 }
