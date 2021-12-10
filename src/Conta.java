@@ -1,62 +1,47 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 public abstract class Conta {
     private String nome;
     private String cpf;
     private double rendaMensal;
-    private int numeroConta=0;
+    private int numeroConta = 0;
     private String agencia;
     private double saldo;
-    private ArrayList<Transacao>listaTransacoes = new ArrayList<>();
-    private final double limite = 0.0;
+    protected double limite = 0;
+    private ArrayList<Transacao> listaTransacoesCliente = new ArrayList<>();
+    private static ArrayList<Transacao> listaTransacoesBanco = new ArrayList<>();
 
-    class Transacao{
-        private String tipo;
-        private String data;
-        private String contaOrigem;
-        private String contaDestino;
-        private double valor;
-
-        @Override
-        public String toString() {
-            return data +" " + tipo +
-                    " conta de origem = " + contaOrigem +
-                    " ,conta de destino = " + contaDestino +
-                    " ,valor = " + valor;
-        }
-
-        public Transacao(String tipo, String origem, String destino, double valor) {
-            this.tipo = tipo;
-            this.contaOrigem = origem;
-            this.contaDestino = destino;
-            LocalDateTime a = LocalDateTime.now();
-            DateTimeFormatter b = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-            this.data = a.format(b);
-            this.valor = valor;
-
-
-        }
-    }
-
-    Conta(String nome,String cpf,double rendaMensal,String agencia,double saldo){
+    public Conta(String nome, String cpf, double rendaMensal, String agencia, double saldo) {
         numeroConta++;
         this.nome = nome;
-        this.rendaMensal = rendaMensal;
-        this.numeroConta = numeroConta;
-        this.agencia = agencia;
-        this.saldo = saldo;
-
-        if(validarCPF(cpf)){
+        if (validarCPF(cpf)==true) {
             this.cpf = cpf;
-        }else{
+        } else {
             solicitarCPF();
         }
+        this.numeroConta = getNumeroConta();
+        this.rendaMensal = rendaMensal;
+        if(validarAgencia(agencia)==true){
+            this.agencia = agencia;
+        }else{
+            solicitarAgencia();
+        }
+        this.saldo = saldo;
+    }
 
+    @Override
+    public String toString() {
+        return  "nome:" + nome +
+                ", cpf:" + cpf +
+                ", rendaMensal: " + rendaMensal +
+                ", numeroConta: " + numeroConta +
+                ", agencia: " + agencia  +
+                ", saldo: " + saldo +
+                ", limite: " + limite;
     }
 
     public boolean validarCPF(String CPF) {
@@ -68,47 +53,47 @@ public abstract class Conta {
             return (false);
         }else{
 
-        char d10, d11;
-        int soma, i, r, num, peso;
+            char d10, d11;
+            int soma, i, r, num, peso;
 
-        try {
-            soma = 0;
-            peso = 10;
-            for (i = 0; i < 9; i++) {
-                num = (int) (CPF.charAt(i) - 48);
-                soma = soma + (num * peso);
-                peso = peso - 1;
-            }
+            try {
+                soma = 0;
+                peso = 10;
+                for (i = 0; i < 9; i++) {
+                    num = (int) (CPF.charAt(i) - 48);
+                    soma = soma + (num * peso);
+                    peso = peso - 1;
+                }
 
-            r = 11 - (soma % 11);
-            if ((r == 10) || (r == 11)) {
-                d10 = '0';
-            } else {
-                d10 = (char) (r + 48);
-            }
+                r = 11 - (soma % 11);
+                if ((r == 10) || (r == 11)) {
+                    d10 = '0';
+                } else {
+                    d10 = (char) (r + 48);
+                }
 
-            soma = 0;
-            peso = 11;
-            for (i = 0; i < 10; i++) {
-                num = (int) (CPF.charAt(i) - 48);
-                soma = soma + (num * peso);
-                peso = peso - 1;
-            }
+                soma = 0;
+                peso = 11;
+                for (i = 0; i < 10; i++) {
+                    num = (int) (CPF.charAt(i) - 48);
+                    soma = soma + (num * peso);
+                    peso = peso - 1;
+                }
 
-            r = 11 - (soma % 11);
-            if ((r == 10) || (r == 11)){
-                d11 = '0';
-            }else{
-                d11 = (char) (r + 48);
-            }
+                r = 11 - (soma % 11);
+                if ((r == 10) || (r == 11)){
+                    d11 = '0';
+                }else{
+                    d11 = (char) (r + 48);
+                }
 
-            if ((d10 == CPF.charAt(9)) && (d11 == CPF.charAt(10))) {
-                return (true);
-            }else {
-                return (false);
-            }
-                } catch (InputMismatchException ERRO) {
+                if ((d10 == CPF.charAt(9)) && (d11 == CPF.charAt(10))) {
+                    return (true);
+                }else {
                     return (false);
+                }
+            } catch (InputMismatchException ERRO) {
+                return (false);
             }
         }
     }
@@ -128,39 +113,71 @@ public abstract class Conta {
         }
     }
 
+    public boolean validarAgencia(String agencia) {
+        try {
+            if ((agencia.equals("001")) || (agencia.equals("002"))) {
+                return (true);
+            } else {
+                return (false);
+            }
+        } catch (InputMismatchException ERRO) {
+            return (false);
+        }
+    }
+
+    public void solicitarAgencia() {
+        Scanner sc = new Scanner(System.in);
+        boolean agenciaInvalida = true;
+        while (agenciaInvalida) {
+            System.out.println("Por favor, digite uma agencia valida");
+            String agenciaTeste = sc.next();
+            if (validarAgencia(agenciaTeste) == true) {
+                this.agencia = agenciaTeste;
+                agenciaInvalida = false;
+            } else {
+                agenciaInvalida = true;
+            }
+        }
+    }
+
     public void saque(double decremento){
         if(decremento <= (this.saldo + getLimite())){
             this.saldo = this.saldo - decremento;
         }else{
             System.out.println("o saldo foi insuficiente");
         }
-        Transacao s = new Transacao("saque",this.nome, this.nome, decremento);
-        listaTransacoes.add(s);
+        Transacao s = new Transacao("saque",this.cpf, this.cpf, decremento);
+        listaTransacoesCliente.add(s);
+        listaTransacoesBanco.add(s);
     }
-
-
 
     public void deposito(double incremento){
         this.saldo = this.saldo + incremento;
-        Transacao d = new Transacao("deposito",this.nome, this.nome, incremento);
-        listaTransacoes.add(d);
+        Transacao d = new Transacao("deposito",this.cpf, this.cpf, incremento);
+        listaTransacoesCliente.add(d);
+        listaTransacoesBanco.add(d);
     }
 
-    public void transferir(Conta c1, Conta c2, double valor){
-        c1.saldo = c1.saldo - valor;
-        c2.saldo = c2.saldo + valor;
-        Transacao t = new Transacao("transferencia",c1.nome, c2.nome, valor);
-        listaTransacoes.add(t);
+    public void transferir(Conta c2, double valorTransferencia) {
+        if (valorTransferencia <= (this.saldo + this.getLimite())) {
+            this.saldo = this.saldo - valorTransferencia;
+            c2.saldo = c2.saldo + valorTransferencia;
+            Transacao t = new Transacao("transferencia", this.cpf, c2.cpf, valorTransferencia);
+            this.listaTransacoesCliente.add(t);
+            c2.listaTransacoesCliente.add(t);
+            listaTransacoesBanco.add(t);
+        } else {
+            System.out.println("Saldo insuficiente para a transferencia");
+        }
     }
-
-    public void alteraDados(String nome, double rendaMensal,String agencia) {
+    public void alteraDados(String nome, String cpf, double rendaMensal, String agencia) {
         this.nome = nome;
         this.rendaMensal = rendaMensal;
-        this.agencia = agencia;
-    }
-
-    public void imprimeSaldo(){
-        System.out.println("Saldo atual: " + this.saldo);
+        if(validarAgencia(agencia)){
+            this.agencia = agencia;
+        }else{
+            solicitarAgencia();
+        }
     }
 
     public double getRendaMensal() {
@@ -175,15 +192,37 @@ public abstract class Conta {
         return saldo;
     }
 
-    public ArrayList<Transacao> getListaTransacoes() {
-        return listaTransacoes;
+    public int getNumeroConta() {
+        return numeroConta;
     }
 
-    public void extrato(){
-        for (Conta.Transacao a : this.getListaTransacoes()) {
+    public static ArrayList<Transacao> getListaTransacoesBanco() {
+        return listaTransacoesBanco;
+    }
+
+    public ArrayList<Transacao> getListaTransacoesCliente() {
+        return listaTransacoesCliente;
+    }
+
+    public void extratoCliente(){
+        for (Transacao a : this.getListaTransacoesCliente()) {
             System.out.println(a);
         }
         System.out.println("Saldo atual: " + this.getSaldo());
+    }
+
+    public static void extratoBanco(){
+        for (Transacao a : Conta.getListaTransacoesBanco()) {
+            System.out.println(a);
+        }
+    }
+
+    public static void historicoTransacoesBanco() {
+        Conta.extratoBanco();
+    }
+
+    public static void historicoTransacoesCliente(Conta c1) {
+        c1.extratoCliente();
     }
 
 }
