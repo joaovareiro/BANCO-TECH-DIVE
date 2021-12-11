@@ -13,7 +13,7 @@ public class MenuCriacao {
                     4 - Sair """);
             op = sc.nextInt();
             if (op == 4) {
-
+            MenuInicial.menuInicial();
             }else{
                 System.out.printf("Digite o nome da conta corrente\n");
                 String nomeContaCorrente = sc.nextLine();
