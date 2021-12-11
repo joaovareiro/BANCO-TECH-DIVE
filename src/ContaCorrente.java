@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class ContaCorrente extends Conta{
+public class ContaCorrente extends Conta {
 
-    private final double limiteContaCorrente = (this.getRendaMensal())/5;
+    private final double limiteContaCorrente = (this.getRendaMensal()) / 5;
 
     private static ArrayList<Conta> contasCorrente = new ArrayList<>();
     private static ArrayList<Conta> contasNegativas = new ArrayList<>();
@@ -18,17 +18,20 @@ public class ContaCorrente extends Conta{
         return limiteContaCorrente;
     }
 
-    public static void listaContasCorrente(){
-        for( Conta a: contasCorrente){
+    public static void listaContasCorrente() {
+        for (Conta a : contasCorrente) {
             System.out.println(a);
         }
     }
 
-    public static void listaContasNegativas(){
-        for( Conta a: contasCorrente){
-            if(a.getSaldo() < 0) {
+    public static void listaContasNegativas() {
+        for (Conta a : contasCorrente) {
+            if (a.getSaldo() < 0) {
                 System.out.println(a);
             }
         }
     }
+
+
 }
+    //double parsedValue = Double.parseDouble(scanner.nextLine().replace(",",".");

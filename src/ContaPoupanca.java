@@ -8,15 +8,15 @@ public class ContaPoupanca extends Conta{
         contasPoupanca.add(this);
     }
 
+    public void simulacao(double capitalInicial, double taxaJuros, float tempoMeses){
+        double montante = capitalInicial*Math.pow((1+taxaJuros),tempoMeses);
+        System.out.printf("O montante será %.2f", montante);
+    }
+
     public static void listaContasPoupanca(){
         for( Conta a: contasPoupanca){
             System.out.println(a);
         }
-
     }
-    public void simulacao(double capitalInicial, double taxaJuros, float tempoMeses){
-        double montante = capitalInicial*Math.pow((1+taxaJuros),tempoMeses);
-        System.out.printf("O montante será %.2f", montante);
 
-    }
 }

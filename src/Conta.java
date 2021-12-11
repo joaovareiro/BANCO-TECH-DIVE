@@ -8,22 +8,23 @@ public abstract class Conta {
     private String nome;
     private String cpf;
     private double rendaMensal;
-    private int numeroConta = 0;
+    private static int numeroConta;
+    private static int aux = 0;
     private String agencia;
     private double saldo;
     protected double limite = 0;
+    private static ArrayList<Conta> listaContas = new ArrayList<>();
     private ArrayList<Transacao> listaTransacoesCliente = new ArrayList<>();
     private static ArrayList<Transacao> listaTransacoesBanco = new ArrayList<>();
 
     public Conta(String nome, String cpf, double rendaMensal, String agencia, double saldo) {
-        numeroConta++;
         this.nome = nome;
         if (validarCPF(cpf)==true) {
             this.cpf = cpf;
         } else {
             solicitarCPF();
         }
-        this.numeroConta = getNumeroConta();
+        this.numeroConta = ++aux;
         this.rendaMensal = rendaMensal;
         if(validarAgencia(agencia)==true){
             this.agencia = agencia;
@@ -31,6 +32,7 @@ public abstract class Conta {
             solicitarAgencia();
         }
         this.saldo = saldo;
+        listaContas.add(this);
     }
 
     @Override
@@ -140,9 +142,11 @@ public abstract class Conta {
         }
     }
 
-    public void saque(double decremento){
-        if(decremento <= (this.saldo + getLimite())){
+    public void saque(double decremento) {
+        if (decremento <= (this.saldo + getLimite())) {
             this.saldo = this.saldo - decremento;
+        }else if(decremento < 0){
+            System.out.println("Valor invalido");
         }else{
             System.out.println("o saldo foi insuficiente");
         }
@@ -152,23 +156,28 @@ public abstract class Conta {
     }
 
     public void deposito(double incremento){
-        this.saldo = this.saldo + incremento;
-        Transacao d = new Transacao("deposito",this.cpf, this.cpf, incremento);
-        listaTransacoesCliente.add(d);
-        listaTransacoesBanco.add(d);
-    }
-
-    public void transferir(Conta c2, double valorTransferencia) {
-        if (valorTransferencia <= (this.saldo + this.getLimite())) {
-            this.saldo = this.saldo - valorTransferencia;
-            c2.saldo = c2.saldo + valorTransferencia;
-            Transacao t = new Transacao("transferencia", this.cpf, c2.cpf, valorTransferencia);
-            this.listaTransacoesCliente.add(t);
-            c2.listaTransacoesCliente.add(t);
-            listaTransacoesBanco.add(t);
-        } else {
-            System.out.println("Saldo insuficiente para a transferencia");
+        if(incremento > 0) {
+            this.saldo = this.saldo + incremento;
+            Transacao d = new Transacao("deposito", this.cpf, this.cpf, incremento);
+            listaTransacoesCliente.add(d);
+            listaTransacoesBanco.add(d);
+        }else{
+            System.out.println("Valor invalido");
         }
+    }
+    public void transferir(Conta c2, double valorTransferencia) {
+            if (valorTransferencia <= (this.saldo + this.getLimite())) {
+                this.saldo = this.saldo - valorTransferencia;
+                c2.saldo = c2.saldo + valorTransferencia;
+                Transacao t = new Transacao("transferencia", this.cpf, c2.cpf, valorTransferencia);
+                this.listaTransacoesCliente.add(t);
+                c2.listaTransacoesCliente.add(t);
+                listaTransacoesBanco.add(t);
+            } else if (valorTransferencia < 0) {
+                System.out.println("Valor invalido");
+            } else {
+                System.out.println("Saldo insuficiente para a transferencia");
+            }
     }
     public void alteraDados(String nome, String cpf, double rendaMensal, String agencia) {
         this.nome = nome;
@@ -192,7 +201,7 @@ public abstract class Conta {
         return saldo;
     }
 
-    public int getNumeroConta() {
+    public static int getNumeroConta() {
         return numeroConta;
     }
 
@@ -225,4 +234,20 @@ public abstract class Conta {
         c1.extratoCliente();
     }
 
+
+
+    public static Conta procuraConta(int id){
+        for(Conta a : listaContas){
+            if(Conta.getNumeroConta() == id ){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public static void listaTudo(){
+        for(Conta a : listaContas){
+            System.out.println(a);
+        }
+    }
 }

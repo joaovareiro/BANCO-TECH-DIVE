@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class ContaInvestimento extends Conta{
+public class ContaInvestimento extends Conta {
     private static ArrayList<Conta> contasInvestimento = new ArrayList<>();
 
     public ContaInvestimento(String nome, String cpf, double rendaMensal, String agencia, double saldo) {
@@ -13,4 +13,6 @@ public class ContaInvestimento extends Conta{
             System.out.println(a);
         }
     }
+
+    //fazer no minimo 2 tipos de investimentos possiveis, e depois fazer uma simulacao para esse investimento
 }
