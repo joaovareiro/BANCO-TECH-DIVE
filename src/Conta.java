@@ -8,8 +8,8 @@ public abstract class Conta {
     private String nome;
     private String cpf;
     private double rendaMensal;
-    private static int numeroConta;
-    private static int aux = 0;
+    private static int numeroConta = 0;
+    private int aux = 0;
     private String agencia;
     private double saldo;
     protected double limite = 0;
@@ -19,41 +19,29 @@ public abstract class Conta {
 
     public Conta(String nome, String cpf, double rendaMensal, String agencia, double saldo) {
         this.nome = nome;
-        if (validarCPF(cpf)==true) {
+        if (validarCPF(cpf)) {
             this.cpf = cpf;
         } else {
             solicitarCPF();
         }
-        this.numeroConta = ++aux;
+        this.numeroConta = aux;
         this.rendaMensal = rendaMensal;
-        if(validarAgencia(agencia)==true){
+        if (validarAgencia(agencia)) {
             this.agencia = agencia;
-        }else{
+        } else {
             solicitarAgencia();
         }
         this.saldo = saldo;
         listaContas.add(this);
     }
 
-    @Override
-    public String toString() {
-        return  "nome:" + nome +
-                ", cpf:" + cpf +
-                ", rendaMensal: " + rendaMensal +
-                ", numeroConta: " + numeroConta +
-                ", agencia: " + agencia  +
-                ", saldo: " + saldo +
-                ", limite: " + limite;
-    }
-
     public boolean validarCPF(String CPF) {
         if (CPF.equals("00000000000") || CPF.equals("11111111111") || CPF.equals("22222222222")
                 || CPF.equals("33333333333") || CPF.equals("44444444444") || CPF.equals("55555555555")
                 || CPF.equals("66666666666") || CPF.equals("77777777777") || CPF.equals("88888888888")
-                || CPF.equals("99999999999") || (CPF.length() != 11))
-        {
+                || CPF.equals("99999999999") || (CPF.length() != 11)) {
             return (false);
-        }else{
+        } else {
 
             char d10, d11;
             int soma, i, r, num, peso;
@@ -83,15 +71,15 @@ public abstract class Conta {
                 }
 
                 r = 11 - (soma % 11);
-                if ((r == 10) || (r == 11)){
+                if ((r == 10) || (r == 11)) {
                     d11 = '0';
-                }else{
+                } else {
                     d11 = (char) (r + 48);
                 }
 
                 if ((d10 == CPF.charAt(9)) && (d11 == CPF.charAt(10))) {
                     return (true);
-                }else {
+                } else {
                     return (false);
                 }
             } catch (InputMismatchException ERRO) {
@@ -100,16 +88,16 @@ public abstract class Conta {
         }
     }
 
-    public void solicitarCPF(){
+    public void solicitarCPF() {
         Scanner sc = new Scanner(System.in);
         boolean cpfIncorreto = true;
-        while(cpfIncorreto){
+        while (cpfIncorreto) {
             System.out.println("Por favor, digite um CPF valido");
             String cpfTeste = sc.next();
-            if(validarCPF(cpfTeste)==true){
+            if (validarCPF(cpfTeste) == true) {
                 this.cpf = cpfTeste;
                 cpfIncorreto = false;
-            }else{
+            } else {
                 cpfIncorreto = true;
             }
         }
@@ -143,50 +131,70 @@ public abstract class Conta {
     }
 
     public void saque(double decremento) {
-        if (decremento <= (this.saldo + getLimite())) {
+        if (this instanceof ContaInvestimento && decremento > 0){
             this.saldo = this.saldo - decremento;
-        }else if(decremento < 0){
+            Transacao i = new Transacao("investimento", this.cpf, this.cpf, decremento);
+            listaTransacoesCliente.add(i);
+            listaTransacoesBanco.add(i);
+        } else if (decremento <= (this.saldo + getLimite())) {
+            this.saldo = this.saldo - decremento;
+            Transacao s = new Transacao("saque", this.cpf, this.cpf, decremento);
+            listaTransacoesCliente.add(s);
+            listaTransacoesBanco.add(s);
+        } else if (decremento < 0) {
             System.out.println("Valor invalido");
-        }else{
+        } else {
             System.out.println("o saldo foi insuficiente");
         }
-        Transacao s = new Transacao("saque",this.cpf, this.cpf, decremento);
-        listaTransacoesCliente.add(s);
-        listaTransacoesBanco.add(s);
     }
 
-    public void deposito(double incremento){
-        if(incremento > 0) {
+
+
+    public void deposito(double incremento) {
+        if (incremento > 0) {
             this.saldo = this.saldo + incremento;
             Transacao d = new Transacao("deposito", this.cpf, this.cpf, incremento);
             listaTransacoesCliente.add(d);
             listaTransacoesBanco.add(d);
-        }else{
+        } else {
             System.out.println("Valor invalido");
         }
     }
+
     public void transferir(Conta c2, double valorTransferencia) {
-            if (valorTransferencia <= (this.saldo + this.getLimite())) {
-                this.saldo = this.saldo - valorTransferencia;
-                c2.saldo = c2.saldo + valorTransferencia;
-                Transacao t = new Transacao("transferencia", this.cpf, c2.cpf, valorTransferencia);
-                this.listaTransacoesCliente.add(t);
-                c2.listaTransacoesCliente.add(t);
-                listaTransacoesBanco.add(t);
-            } else if (valorTransferencia < 0) {
-                System.out.println("Valor invalido");
-            } else {
-                System.out.println("Saldo insuficiente para a transferencia");
-            }
+        if (valorTransferencia <= (this.saldo + this.getLimite())) {
+            this.saldo = this.saldo - valorTransferencia;
+            c2.saldo = c2.saldo + valorTransferencia;
+            Transacao t = new Transacao("transferencia", this.cpf, c2.cpf, valorTransferencia);
+            this.listaTransacoesCliente.add(t);
+            c2.listaTransacoesCliente.add(t);
+            listaTransacoesBanco.add(t);
+        } else if (valorTransferencia < 0) {
+            System.out.println("Valor invalido");
+        } else {
+            System.out.println("Saldo insuficiente para a transferencia");
+        }
     }
+
     public void alteraDados(String nome, String cpf, double rendaMensal, String agencia) {
         this.nome = nome;
         this.rendaMensal = rendaMensal;
-        if(validarAgencia(agencia)){
+        if (validarAgencia(agencia)) {
             this.agencia = agencia;
-        }else{
+        } else {
             solicitarAgencia();
         }
+    }
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getAgencia() {
+        return agencia;
     }
 
     public double getRendaMensal() {
@@ -205,6 +213,10 @@ public abstract class Conta {
         return numeroConta;
     }
 
+    public static int getNumeroDaConta() {
+        return numeroConta;
+    }
+
     public static ArrayList<Transacao> getListaTransacoesBanco() {
         return listaTransacoesBanco;
     }
@@ -213,14 +225,14 @@ public abstract class Conta {
         return listaTransacoesCliente;
     }
 
-    public void extratoCliente(){
+    public void extratoCliente() {
         for (Transacao a : this.getListaTransacoesCliente()) {
             System.out.println(a);
         }
         System.out.println("Saldo atual: " + this.getSaldo());
     }
 
-    public static void extratoBanco(){
+    public static void extratoBanco() {
         for (Transacao a : Conta.getListaTransacoesBanco()) {
             System.out.println(a);
         }
@@ -235,19 +247,19 @@ public abstract class Conta {
     }
 
 
-
-    public static Conta procuraConta(int id){
-        for(Conta a : listaContas){
-            if(Conta.getNumeroConta() == id ){
+    public static Conta procuraConta(int id) {
+        for (Conta a : listaContas) {
+            if (Conta.getNumeroConta() == id) {
                 return a;
             }
         }
         return null;
     }
 
-    public static void listaTudo(){
-        for(Conta a : listaContas){
+    public static void listaTudo() {
+        for (Conta a : listaContas) {
             System.out.println(a);
         }
     }
 }
+

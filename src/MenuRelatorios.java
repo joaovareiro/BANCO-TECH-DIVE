@@ -11,7 +11,7 @@ public class MenuRelatorios extends MenuOperacoes{
                     2 - Listar contas com saldo negativo
                     3 - Listar valor investido
                     4 - Lista transacoes de uma conta
-                    5 - Sair """);
+                    5 - Voltar para o menu inicial """);
         op = sc.nextInt();
         if(op == 1){
             System.out.println("""
@@ -19,7 +19,8 @@ public class MenuRelatorios extends MenuOperacoes{
                     1 - Listar contas correntes
                     2 - Listar contas poupanca
                     3 - Listar contas investimento
-                    4 - Sair """);
+                    4 - Lista todas as contas do sistema
+                    5 - Voltar para o menu de relatorios""");
                     op = sc.nextInt();
                     if(op == 1){
                         ContaCorrente.listaContasCorrente();
@@ -28,18 +29,25 @@ public class MenuRelatorios extends MenuOperacoes{
                     }else if(op == 3){
                         ContaInvestimento.listaContaInvestimento();
                     }else if(op == 4){
+                        Conta.listaTudo();
+                    }else if(op == 5){
                         MenuRelatorios.menuRelatorios();
                     }
             }else if(op == 2){
             ContaCorrente.listaContasNegativas();
             }else if(op == 3){
-            //LISTAR VALOR INVESTIDO
+            System.out.println("Insira o numero da conta que vai ser acessada");
+            int id = sc.nextInt();
+            ContaInvestimento b = (ContaInvestimento) Conta.procuraConta(id);
+            ContaInvestimento.getValorInvestidoTotal(b);
             }else if(op == 4){
             System.out.println("Insira o numero da conta que vai ser acessada");
             int id = sc.nextInt();
             (Conta.procuraConta(id)).extratoCliente();
             }else if(op == 5){
-            break;
+            Conta.listaTudo();
+            }else if(op == 6){
+            MenuInicial.menuInicial();
             }
         }
     }

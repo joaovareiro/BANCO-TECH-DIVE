@@ -3,9 +3,22 @@ import java.util.ArrayList;
 public class ContaPoupanca extends Conta{
     private static ArrayList<Conta> contasPoupanca = new ArrayList<>();
 
+
+
     public ContaPoupanca(String nome, String cpf, double rendaMensal, String agencia, double saldo) {
         super(nome, cpf, rendaMensal, agencia, saldo);
         contasPoupanca.add(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Conta Poupanca "+"nome:" + this.getNome() +
+                ", cpf:" + this.getCpf() +
+                ", rendaMensal: " + this.getRendaMensal() +
+                ", numeroConta: " + getNumeroDaConta()  +
+                ", agencia: " + this.getAgencia() +
+                ", saldo: " + this.getSaldo() +
+                ", limite: " + this.getLimite();
     }
 
     public void simulacao(double capitalInicial, double taxaJuros, float tempoMeses){
@@ -14,9 +27,12 @@ public class ContaPoupanca extends Conta{
     }
 
     public static void listaContasPoupanca(){
-        for( Conta a: contasPoupanca){
-            System.out.println(a);
+        if (contasPoupanca.isEmpty()) {
+            System.out.println("Nao existem contas correntes poupanca no sistema");
+        } else {
+            for (Conta a : contasPoupanca) {
+                System.out.println(a);
+            }
         }
     }
-
 }

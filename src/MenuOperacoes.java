@@ -28,6 +28,7 @@ public abstract class MenuOperacoes {
             op = sc.nextInt();
         if(op == 0){
         MenuInicial.menuInicial();
+            break;
         }else if (op == 1) {
                 System.out.println("Insira o valor a ser sacado:");
                 double decremento = sc.nextDouble();

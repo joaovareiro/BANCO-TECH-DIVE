@@ -8,6 +8,16 @@ public class Transacao {
     private String contaDestino;
     private double valor;
 
+    @Override
+    public String toString() {
+        return "Transacao" +
+                "tipo = '" + tipo + '\'' +
+                ", data = '" + data + '\'' +
+                ", contaOrigem = '" + contaOrigem + '\'' +
+                ", contaDestino = '" + contaDestino + '\'' +
+                ", valor = " + valor;
+    }
+
     public Transacao(String tipo, String origem, String destino, double valor) {
         this.tipo = tipo;
         this.contaOrigem = origem;
@@ -16,7 +26,5 @@ public class Transacao {
         DateTimeFormatter b = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         this.data = a.format(b);
         this.valor = valor;
-
-
     }
 }

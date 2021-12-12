@@ -11,17 +11,19 @@ public abstract class MenuInicial {
                     1 - Cadastrar contas
                     2 - Efetuar operacoes
                     3 - Acessar relatorios
-                    4 - Sair """);
+                    4 - Sair da aplicacao """);
 
         op = sc.nextInt();
         if (op == 1) {
             MenuCriacao.menuCriacao();
-        }if(op == 2) {
+        }else if(op == 2) {
             MenuOperacoes.login();
-        }
-        if (op ==3 ){
-
+        }else if (op ==3 ){
+            MenuRelatorios.menuRelatorios();
+        }else if (op == 4){
+            break;
             }
+        break;
         }
     }
 }
