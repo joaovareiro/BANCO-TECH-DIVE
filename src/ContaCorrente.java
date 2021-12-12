@@ -50,7 +50,7 @@ public class ContaCorrente extends Conta {
 
     public static void listaContasNegativas() {
         if (contasNegativas.isEmpty()) {
-            System.out.println("Nao existem contas com saldo negativo registradas no sistema");
+            System.out.println("Nao foram encontradas contas com saldo negativo registradas no sistema");
         } else {
             for (Conta a : contasNegativas) {
                 System.out.println(a);

@@ -15,9 +15,10 @@ public class MenuOperacoesInvestimento {
                     5 - Alterar dados cadastrais
                     6 - Simular investimento
                     7 - Investir
-                    8 - Sair do menu de operacoes e ir para o menu inicial""");
+                    8 - Mostrar valor investido
+                    9 - Sair do menu de operacoes e ir para o menu inicial""");
             op = sc.nextInt();
-            if (op == 8) {
+            if (op == 9) {
                 MenuInicial.menuInicial();
                 break;
             } else if (op == 1) {
@@ -103,7 +104,10 @@ public class MenuOperacoesInvestimento {
                 } else {
                     a.investir(cap, taxa);
                 }
+            }if (op ==8){
+                    System.out.printf("O valor investido nessa conta foi R$ %.2f\n",a.getValorInvestidoTotal());
+                }
             }
         }
     }
-}
+

@@ -32,14 +32,16 @@ public class ContaInvestimento extends Conta {
 
     public void calcularInvestimento(double valorInvestido, double taxa) {
         double rendimentoAnual = valorInvestido * (taxa * 12);
-        System.out.printf("Daqui a um ano se dinheiro ira valer : %.2f", rendimentoAnual);
+        System.out.printf("Daqui a um ano se dinheiro ira valer : %.2f\n", rendimentoAnual);
     }
 
 
     public void investir(double valorInvestido, double taxa) {
             saque(valorInvestido);
             double rendimentoAnual = valorInvestido * (taxa * 12);
-            valorInvestidoTotal = valorInvestidoTotal + valorInvestido;
+            if(this.check == 1) {
+                valorInvestidoTotal = valorInvestidoTotal + valorInvestido;
+            }
     }
 
     public double getValorInvestidoTotal() {

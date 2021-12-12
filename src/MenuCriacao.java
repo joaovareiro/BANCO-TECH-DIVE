@@ -19,7 +19,7 @@ public class MenuCriacao {
                 sc.nextLine();
                 String nomeNovo = sc.nextLine();
 
-                System.out.printf("Digite o cpf da conta \n");
+                System.out.printf("Digite o cpf da conta (apenas os numeros) \n");
                 String cpfNovo = sc.nextLine();
                 System.out.println("Digite a renda mensal da conta ");
                 double rendaMensalNova = sc.nextDouble();
