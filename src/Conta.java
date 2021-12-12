@@ -228,7 +228,7 @@ public abstract class Conta {
         for (Transacao a : this.getListaTransacoesCliente()) {
             System.out.println(a);
         }
-        System.out.println("Saldo atual: " + this.getSaldo());
+        System.out.printf("Saldo atual: %.2f\n",this.getSaldo());
     }
 
     public void extratoSemSaldo() {

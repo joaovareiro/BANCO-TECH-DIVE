@@ -31,7 +31,6 @@ public class MenuRelatorios extends MenuOperacoes{
                     }else if(op == 4){
                         Conta.listaTudo();
                     }else if(op == 5){
-                        //MenuRelatorios.menuRelatorios();
                         break;
                     }
             }else if(op == 2){

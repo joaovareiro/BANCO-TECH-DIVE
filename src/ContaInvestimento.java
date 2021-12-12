@@ -37,12 +37,11 @@ public class ContaInvestimento extends Conta {
 
     public void calcularInvestimento(double valorInvestido, double taxa) {
         double rendimentoAnual = valorInvestido * (taxa * 12);
-        System.out.printf("Daqui a um ano se dinheiro ira valer : %.2f\n", rendimentoAnual);
+        System.out.printf("Daqui a um ano se dinheiro ira valer : %.2f\n", rendimentoAnual + valorInvestido);
     }
 
 
     public void investir(double valorInvestido, double taxa) {
-        //saqueInvestimento(valorInvestido);
         double rendimentoAnual = valorInvestido * (taxa * 12);
         if(saqueInvestimento(valorInvestido)==1) {
             valorInvestidoTotal = valorInvestidoTotal + valorInvestido;
@@ -50,7 +49,7 @@ public class ContaInvestimento extends Conta {
         TimerTask devolveInvestimento = new TimerTask() {
             @Override
                 public void run() {
-                    deposito(rendimentoAnual);
+                    deposito(rendimentoAnual + valorInvestido);
                 }
         };
         Timer timer = new Timer();
