@@ -1,5 +1,3 @@
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,7 +11,6 @@ public abstract class Conta {
     private String agencia;
     private double saldo;
     protected double limite = 0;
-    public static int check = 0;
     private static ArrayList<Conta> listaContas = new ArrayList<>();
     private ArrayList<Transacao> listaTransacoesCliente = new ArrayList<>();
     private static ArrayList<Transacao> listaTransacoesBanco = new ArrayList<>();
@@ -122,16 +119,7 @@ public abstract class Conta {
     }
 
     public void saque(double decremento) {
-        if (this instanceof ContaInvestimento && (decremento > 0) && (decremento < this.saldo)){
-            check++;
-            this.saldo = this.saldo - decremento;
-            System.out.printf("Foi investido o valor de : R$ %.2f\n",decremento);
-            Transacao i = new Transacao("investimento", this.cpf, this.cpf, decremento);
-            listaTransacoesCliente.add(i);
-            listaTransacoesBanco.add(i);
-            check = 0;
-
-        } else if (decremento <= (this.saldo + getLimite())) {
+        if (decremento <= (this.saldo + getLimite())) {
             this.saldo = this.saldo - decremento;
             Transacao s = new Transacao("saque", this.cpf, this.cpf, decremento);
             listaTransacoesCliente.add(s);
@@ -145,6 +133,19 @@ public abstract class Conta {
     }
 
 
+    public int saqueInvestimento(double decremento) {
+        if (this instanceof ContaInvestimento && (decremento > 0) && (decremento < this.saldo)) {
+            this.saldo = this.saldo - decremento;
+            System.out.printf("Foi investido o valor de : R$ %.2f\n", decremento);
+            Transacao i = new Transacao("investimento", this.cpf, this.cpf, decremento);
+            listaTransacoesCliente.add(i);
+            listaTransacoesBanco.add(i);
+            return 1;
+        }else{
+            System.out.println("saldo insuficiente");
+            return 0;
+        }
+    }
 
     public void deposito(double incremento) {
         if (incremento > 0) {
@@ -267,6 +268,16 @@ public abstract class Conta {
     public static void listaTudo() {
         for (Conta a : listaContas) {
             System.out.println(a);
+        }
+    }
+
+    public static void listaTransacoesDoBanco(){
+        if(listaTransacoesBanco.isEmpty()){
+            System.out.println("Nao foram feitas transacoes ainda");
+        }else{
+        for (Transacao a : listaTransacoesBanco) {
+            System.out.println(a);
+            }
         }
     }
 }

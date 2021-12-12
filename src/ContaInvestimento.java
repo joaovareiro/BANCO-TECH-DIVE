@@ -1,4 +1,9 @@
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ContaInvestimento extends Conta {
     private static ArrayList<ContaInvestimento> contasInvestimento = new ArrayList<>();
@@ -37,16 +42,27 @@ public class ContaInvestimento extends Conta {
 
 
     public void investir(double valorInvestido, double taxa) {
-            saque(valorInvestido);
-            double rendimentoAnual = valorInvestido * (taxa * 12);
-            if(this.check == 1) {
-                valorInvestidoTotal = valorInvestidoTotal + valorInvestido;
-            }
+        //saqueInvestimento(valorInvestido);
+        double rendimentoAnual = valorInvestido * (taxa * 12);
+        if(saqueInvestimento(valorInvestido)==1) {
+            valorInvestidoTotal = valorInvestidoTotal + valorInvestido;
+        }
+        TimerTask devolveInvestimento = new TimerTask() {
+            @Override
+                public void run() {
+                    deposito(rendimentoAnual);
+                }
+        };
+        Timer timer = new Timer();
+        Long a = Long.parseLong("31536000000");
+        timer.schedule(devolveInvestimento,a);
     }
 
     public double getValorInvestidoTotal() {
         return valorInvestidoTotal;
     }
+
+
 
     public static ContaInvestimento procuraContaInvestimento(int id) {
         for (ContaInvestimento a : contasInvestimento) {

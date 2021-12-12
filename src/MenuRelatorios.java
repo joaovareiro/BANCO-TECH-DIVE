@@ -9,8 +9,9 @@ public class MenuRelatorios extends MenuOperacoes{
                     Selecione uma opcao:\s
                     1 - Listar contas
                     2 - Listar contas com saldo negativo
-                    3 - Lista transacoes de uma conta
-                    4 - Voltar para o menu inicial """);
+                    3 - Listar as transacoes de uma conta
+                    4 - Listar todas as transacoes do banco
+                    5 - Voltar para o menu inicial """);
         op = sc.nextInt();
         if(op == 1){
             System.out.println("""
@@ -40,6 +41,8 @@ public class MenuRelatorios extends MenuOperacoes{
             int id = sc.nextInt();
             (Conta.procuraConta(id)).extratoSemSaldo();
             }else if(op == 4){
+            Conta.listaTransacoesDoBanco();
+            }else if(op == 5){
             MenuInicial.menuInicial();
             }
         }
