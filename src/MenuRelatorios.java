@@ -41,14 +41,14 @@ public class MenuRelatorios extends MenuOperacoes{
             int id = sc.nextInt();
             ContaInvestimento a = ContaInvestimento.procuraContaInvestimento(id);
             if(a!=null){
-            ContaInvestimento.getValorInvestidoTotal(a);
+                System.out.printf("O valor investido nessa conta foi R$ %.2f\n",a.getValorInvestidoTotal());
             }else {
                 System.out.println("Conta nao encontrada");
             }
             }else if(op == 4){
             System.out.println("Insira o numero da conta que vai ser acessada");
             int id = sc.nextInt();
-            (Conta.procuraConta(id)).extratoCliente();
+            (Conta.procuraConta(id)).extratoSemSaldo();
             }else if(op == 5){
             MenuInicial.menuInicial();
             }

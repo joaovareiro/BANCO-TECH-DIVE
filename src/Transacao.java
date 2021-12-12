@@ -11,7 +11,7 @@ public class Transacao {
     @Override
     public String toString() {
 
-        return "Transacao" +
+        return "Transacao " +
                 "tipo = '" + tipo + '\'' +
                 ", data = '" + data + '\'' +
                 ", contaOrigem = '" + contaOrigem + '\'' +

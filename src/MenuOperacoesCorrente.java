@@ -11,9 +11,9 @@ public class MenuOperacoesCorrente {
                     3 - Realizar transferencia
                     4 - Realizar extrato
                     5 - Alterar dados cadastrais
-                    0 - Sair do menu de operacoes e ir para o menu inicial""");
+                    6 - Sair do menu de operacoes e ir para o menu inicial""");
             op = sc.nextInt();
-            if(op == 0){
+            if(op == 6){
                 MenuInicial.menuInicial();
                 break;
             }else if (op == 1) {

@@ -15,9 +15,9 @@ public class MenuOperacoesInvestimento {
                     5 - Alterar dados cadastrais
                     6 - Simular investimento
                     7 - Investir
-                    0 - Sair do menu de operacoes e ir para o menu inicial""");
+                    8 - Sair do menu de operacoes e ir para o menu inicial""");
             op = sc.nextInt();
-            if (op == 0) {
+            if (op == 8) {
                 MenuInicial.menuInicial();
                 break;
             } else if (op == 1) {

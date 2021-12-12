@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 public class ContaInvestimento extends Conta {
     private static ArrayList<ContaInvestimento> contasInvestimento = new ArrayList<>();
-    private double limiteContaInvestimento = 0;
     private double valorInvestidoTotal;
 
     @Override
@@ -36,26 +35,15 @@ public class ContaInvestimento extends Conta {
         System.out.printf("Daqui a um ano se dinheiro ira valer : %.2f", rendimentoAnual);
     }
 
-    @Override
-    public double getLimite() {
-        return limiteContaInvestimento;
-    }
 
     public void investir(double valorInvestido, double taxa) {
             saque(valorInvestido);
             double rendimentoAnual = valorInvestido * (taxa * 12);
-            limiteContaInvestimento = limiteContaInvestimento - valorInvestido;
             valorInvestidoTotal = valorInvestidoTotal + valorInvestido;
     }
 
-    public static double getValorInvestidoTotal(ContaInvestimento a) {
-        double retorno = 0;
-        if(a.valorInvestidoTotal == 0){
-            System.out.println("Nao foram encontrados investimentos nessa conta");
-        }else{
-        retorno =  a.valorInvestidoTotal;
-        }
-        return retorno;
+    public double getValorInvestidoTotal() {
+        return valorInvestidoTotal;
     }
 
     public static ContaInvestimento procuraContaInvestimento(int id) {

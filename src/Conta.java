@@ -121,7 +121,7 @@ public abstract class Conta {
     }
 
     public void saque(double decremento) {
-        if (this instanceof ContaInvestimento && decremento > 0){
+        if (this instanceof ContaInvestimento && (decremento > 0) && (decremento < this.saldo)){
             this.saldo = this.saldo - decremento;
             System.out.printf("Foi investido o valor de : R$ %.2f\n",decremento);
             Transacao i = new Transacao("investimento", this.cpf, this.cpf, decremento);
@@ -225,6 +225,17 @@ public abstract class Conta {
             System.out.println(a);
         }
         System.out.println("Saldo atual: " + this.getSaldo());
+    }
+
+    public void extratoSemSaldo() {
+        int cont = 0;
+        for (Transacao a : this.getListaTransacoesCliente()) {
+            System.out.println(a);
+            cont++;
+        }
+        if(cont == 0){
+            System.out.println("Nao foram encontradas transacoes envolvendo essa conta");
+        }
     }
 
     public static void extratoBanco() {

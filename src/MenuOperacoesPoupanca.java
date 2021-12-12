@@ -13,9 +13,9 @@ public class MenuOperacoesPoupanca {
                     4 - Realizar extrato
                     5 - Alterar dados cadastrais
                     6 - Realizar simulacao
-                    0 - Sair do menu de operacoes e ir para o menu inicial""");
+                    7 - Sair do menu de operacoes e ir para o menu inicial""");
             op = sc.nextInt();
-            if(op == 0){
+            if(op == 7){
                 MenuInicial.menuInicial();
                 break;
             }else if (op == 1) {
