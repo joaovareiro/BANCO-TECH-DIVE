@@ -8,14 +8,15 @@ public abstract class Conta {
     private String nome;
     private String cpf;
     private double rendaMensal;
-    private static int numeroConta = 0;
-    private int aux = 0;
+    private static int aux = 0;
+    private int numeroConta = 0;
     private String agencia;
     private double saldo;
     protected double limite = 0;
     private static ArrayList<Conta> listaContas = new ArrayList<>();
     private ArrayList<Transacao> listaTransacoesCliente = new ArrayList<>();
     private static ArrayList<Transacao> listaTransacoesBanco = new ArrayList<>();
+    private static ArrayList<Integer> listaNumerosConta = new ArrayList<Integer>();
 
     public Conta(String nome, String cpf, double rendaMensal, String agencia, double saldo) {
         this.nome = nome;
@@ -24,6 +25,7 @@ public abstract class Conta {
         } else {
             solicitarCPF();
         }
+        aux++;
         this.numeroConta = aux;
         this.rendaMensal = rendaMensal;
         if (validarAgencia(agencia)) {
@@ -33,6 +35,7 @@ public abstract class Conta {
         }
         this.saldo = saldo;
         listaContas.add(this);
+        listaNumerosConta.add(this.numeroConta);
     }
 
     public boolean validarCPF(String CPF) {
@@ -209,11 +212,11 @@ public abstract class Conta {
         return saldo;
     }
 
-    public static int getNumeroConta() {
-        return numeroConta;
+    public static int getNumeroConta(Conta a) {
+        return a.numeroConta;
     }
 
-    public static int getNumeroDaConta() {
+    public int getNumeroDaConta() {
         return numeroConta;
     }
 
@@ -249,10 +252,9 @@ public abstract class Conta {
 
     public static Conta procuraConta(int id) {
         for (Conta a : listaContas) {
-            if (Conta.getNumeroConta() == id) {
+            if(getNumeroConta(a)==id)
                 return a;
             }
-        }
         return null;
     }
 

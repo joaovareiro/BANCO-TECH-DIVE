@@ -32,21 +32,24 @@ public class MenuRelatorios extends MenuOperacoes{
                         Conta.listaTudo();
                     }else if(op == 5){
                         MenuRelatorios.menuRelatorios();
+                        break;
                     }
             }else if(op == 2){
             ContaCorrente.listaContasNegativas();
             }else if(op == 3){
             System.out.println("Insira o numero da conta que vai ser acessada");
             int id = sc.nextInt();
-            ContaInvestimento b = (ContaInvestimento) Conta.procuraConta(id);
-            ContaInvestimento.getValorInvestidoTotal(b);
+            ContaInvestimento a = ContaInvestimento.procuraContaInvestimento(id);
+            if(a!=null){
+            ContaInvestimento.getValorInvestidoTotal(a);
+            }else {
+                System.out.println("Conta nao encontrada");
+            }
             }else if(op == 4){
             System.out.println("Insira o numero da conta que vai ser acessada");
             int id = sc.nextInt();
             (Conta.procuraConta(id)).extratoCliente();
             }else if(op == 5){
-            Conta.listaTudo();
-            }else if(op == 6){
             MenuInicial.menuInicial();
             }
         }

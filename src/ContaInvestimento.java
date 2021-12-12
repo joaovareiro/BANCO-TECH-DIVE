@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class ContaInvestimento extends Conta {
-    private static ArrayList<Conta> contasInvestimento = new ArrayList<>();
+    private static ArrayList<ContaInvestimento> contasInvestimento = new ArrayList<>();
     private double limiteContaInvestimento = 0;
     private double valorInvestidoTotal;
 
@@ -50,5 +50,13 @@ public class ContaInvestimento extends Conta {
 
     public static double getValorInvestidoTotal(ContaInvestimento a) {
         return a.valorInvestidoTotal;
+    }
+
+    public static ContaInvestimento procuraContaInvestimento(int id) {
+        for (ContaInvestimento a : contasInvestimento) {
+            if(getNumeroConta(a)==id)
+                return a;
+        }
+        return null;
     }
 }
