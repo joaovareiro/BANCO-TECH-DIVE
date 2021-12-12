@@ -19,7 +19,6 @@ public class MenuOperacoesInvestimento {
                     9 - Sair do menu de operacoes e ir para o menu inicial""");
             op = sc.nextInt();
             if (op == 9) {
-                MenuInicial.menuInicial();
                 break;
             } else if (op == 1) {
                 System.out.println("Insira o valor a ser sacado:");
@@ -83,20 +82,20 @@ public class MenuOperacoesInvestimento {
                 double cap = sc.nextDouble();
                 System.out.println("""
                         Selecione uma taxa:\s
-                        1 - Taxa Selic 0.2461
-                        2 - Taxa LCA 0.3120
-                        3 - Taxa CBD 0.1987
-                        4 - Taxa LCI 0.2780""");
+                        1 - Taxa Selic 0.02461
+                        2 - Taxa LCA 0.03120
+                        3 - Taxa CBD 0.01987
+                        4 - Taxa LCI 0.02780""");
                 op = sc.nextInt();
                 double taxa = 0;
                 if (op == 1) {
-                    taxa = 0.2461;
+                    taxa = 0.02461;
                 } else if (op == 2) {
-                    taxa = 0.3120;
+                    taxa = 0.03120;
                 } else if (op == 3) {
-                    taxa = 0.1987;
+                    taxa = 0.01987;
                 } else if (op == 4) {
-                    taxa = 0.2780;
+                    taxa = 0.02780;
                 }
 
                 if (taxa == 0) {

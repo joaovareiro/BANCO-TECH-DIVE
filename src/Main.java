@@ -9,7 +9,6 @@ public class Main {
         ContaInvestimento ci1 = new ContaInvestimento("Marcela Bruna Nogueira","04277482830",12450.50,"001",78910.44);
         ContaInvestimento ci2 = new ContaInvestimento("Augusto Leandro Gustavo Gomes", "07376974822",2510,"002",6358.15);
         ContaInvestimento ci3 = new ContaInvestimento("Stefany Elza da Conceição","74010822767",2102.45,"001",3410.78);
-
         MenuInicial.menuInicial();
 
     }

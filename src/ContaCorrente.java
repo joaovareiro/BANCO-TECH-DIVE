@@ -47,8 +47,8 @@ public class ContaCorrente extends Conta {
             }
         }
     }
-
     public static void listaContasNegativas() {
+        ContaCorrente.adicionaContasNegativas();
         if (contasNegativas.isEmpty()) {
             System.out.println("Nao foram encontradas contas com saldo negativo registradas no sistema");
         } else {
@@ -62,8 +62,6 @@ public class ContaCorrente extends Conta {
         for (Conta a : contasCorrente) {
             if (a.getSaldo() < 0) {
                 contasNegativas.add(a);
-                System.out.println(a);
-
             }
         }
     }

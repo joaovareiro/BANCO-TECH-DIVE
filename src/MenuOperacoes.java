@@ -11,7 +11,6 @@ public abstract class MenuOperacoes {
                 break;
             } else {
                 System.out.println("A conta inserida nao foi encontrada");
-                MenuInicial.menuInicial();
                 break;
             }
         }

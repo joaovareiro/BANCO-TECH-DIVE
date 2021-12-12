@@ -13,7 +13,7 @@ public class MenuCriacao {
                     4 - Voltar para o menu inicial """);
             op = sc.nextInt();
             if (op == 4) {
-            MenuInicial.menuInicial();
+                break;
             }else{
                 System.out.printf("Digite o nome da conta \n");
                 sc.nextLine();

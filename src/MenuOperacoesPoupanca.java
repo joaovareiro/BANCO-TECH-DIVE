@@ -16,7 +16,6 @@ public class MenuOperacoesPoupanca {
                     7 - Sair do menu de operacoes e ir para o menu inicial""");
             op = sc.nextInt();
             if(op == 7){
-                MenuInicial.menuInicial();
                 break;
             }else if (op == 1) {
                 System.out.println("Insira o valor a ser sacado:");

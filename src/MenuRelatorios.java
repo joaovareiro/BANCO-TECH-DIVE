@@ -20,7 +20,7 @@ public class MenuRelatorios extends MenuOperacoes{
                     2 - Listar contas poupanca
                     3 - Listar contas investimento
                     4 - Lista todas as contas do sistema
-                    5 - Voltar para o menu de relatorios""");
+                    5 - Voltar para o menu inicial""");
                     op = sc.nextInt();
                     if(op == 1){
                         ContaCorrente.listaContasCorrente();
@@ -31,7 +31,7 @@ public class MenuRelatorios extends MenuOperacoes{
                     }else if(op == 4){
                         Conta.listaTudo();
                     }else if(op == 5){
-                        MenuRelatorios.menuRelatorios();
+                        //MenuRelatorios.menuRelatorios();
                         break;
                     }
             }else if(op == 2){
@@ -43,7 +43,7 @@ public class MenuRelatorios extends MenuOperacoes{
             }else if(op == 4){
             Conta.listaTransacoesDoBanco();
             }else if(op == 5){
-            MenuInicial.menuInicial();
+            break;
             }
         }
     }

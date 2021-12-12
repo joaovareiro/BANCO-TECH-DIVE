@@ -14,7 +14,6 @@ public class MenuOperacoesCorrente {
                     6 - Sair do menu de operacoes e ir para o menu inicial""");
             op = sc.nextInt();
             if(op == 6){
-                MenuInicial.menuInicial();
                 break;
             }else if (op == 1) {
                 System.out.println("Insira o valor a ser sacado:");
