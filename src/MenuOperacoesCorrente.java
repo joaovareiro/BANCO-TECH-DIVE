@@ -38,7 +38,15 @@ public class MenuOperacoesCorrente {
             }else if (op == 4) {
                 a.extratoCliente();
             } else if (op == 5) {
-                MenuInicial.menuInicial();
+                System.out.println("Insira o novo nome");
+                sc.nextLine();
+                String novoNome = sc.nextLine();
+                System.out.println("Insira a nova renda mensal");
+                double novaRendaMensal = sc.nextDouble();
+                System.out.println("Insira a nova agencia");
+                sc.nextLine();
+                String novaAgencia = sc.nextLine();
+                a.alteraDados(novoNome,novaRendaMensal,novaAgencia);
             }
         }
     }

@@ -16,25 +16,26 @@ public class MenuCriacao {
             MenuInicial.menuInicial();
             }else{
                 System.out.printf("Digite o nome da conta \n");
-                String nomeContaCorrente = sc.nextLine();
                 sc.nextLine();
-                System.out.printf("Digite o cpf da conta \n");
-                String cpfContaCorrente = sc.nextLine();
+                String nomeNovo = sc.nextLine();
 
+                System.out.printf("Digite o cpf da conta \n");
+                String cpfNovo = sc.nextLine();
                 System.out.println("Digite a renda mensal da conta ");
-                double rendaMensalContaCorrente = sc.nextDouble();
-                sc.nextLine();
+                double rendaMensalNova = sc.nextDouble();
+
                 System.out.println("Digite a agencia da conta ");
-                String agencia = sc.nextLine();
+                sc.nextLine();
+                String agenciaNova = sc.nextLine();
 
                 System.out.println("Digite o saldo inicial da conta ");
                 double saldoInicial = sc.nextDouble();
             if(op == 1){
-                ContaCorrente a = new ContaCorrente(nomeContaCorrente, cpfContaCorrente, rendaMensalContaCorrente, agencia, saldoInicial);
+                ContaCorrente a = new ContaCorrente(nomeNovo, cpfNovo, rendaMensalNova, agenciaNova, saldoInicial);
             }if(op == 2){
-                ContaInvestimento a = new ContaInvestimento(nomeContaCorrente, cpfContaCorrente, rendaMensalContaCorrente, agencia, saldoInicial);
+                ContaInvestimento a = new ContaInvestimento(nomeNovo, cpfNovo, rendaMensalNova, agenciaNova, saldoInicial);
             }if(op == 3){
-                ContaPoupanca a = new ContaPoupanca(nomeContaCorrente, cpfContaCorrente, rendaMensalContaCorrente, agencia, saldoInicial);
+                ContaPoupanca a = new ContaPoupanca(nomeNovo, cpfNovo, rendaMensalNova, agenciaNova, saldoInicial);
                 }
             }
         }

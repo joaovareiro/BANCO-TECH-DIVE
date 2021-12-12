@@ -1,11 +1,11 @@
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.Collection;
 
 public class ContaCorrente extends Conta {
 
     private final double limiteContaCorrente = (this.getRendaMensal()) / 5;
+    private static ArrayList<ContaCorrente> contasCorrente = new ArrayList<>();
+    private static ArrayList<Conta> contasNegativas = new ArrayList<>();
 
     @Override
     public String toString() {
@@ -18,13 +18,19 @@ public class ContaCorrente extends Conta {
                 ", limite: " + this.getLimite();
     }
 
-    private static ArrayList<Conta> contasCorrente = new ArrayList<>();
-    private static ArrayList<Conta> contasNegativas = new ArrayList<>();
 
-    public ContaCorrente(String nome, String cpf, double rendaMensal, String agencia, double saldo) {
-        super(nome, cpf, rendaMensal, agencia, saldo);
+    public ContaCorrente(String nome1, String cpf1, double rendaMensal, String agencia, double saldo) {
+        super(nome1, cpf1, rendaMensal, agencia, saldo);
         this.limite = limiteContaCorrente;
         contasCorrente.add(this);
+    }
+
+    public static ContaCorrente procuraContaCorrente(int id) {
+        for (ContaCorrente a : contasCorrente) {
+            if(getNumeroConta(a)==id)
+                return a;
+        }
+        return null;
     }
 
     @Override
@@ -43,15 +49,24 @@ public class ContaCorrente extends Conta {
     }
 
     public static void listaContasNegativas() {
-        for (Conta a : contasCorrente) {
-            if (a.getSaldo() < 0) {
+        if (contasNegativas.isEmpty()) {
+            System.out.println("Nao existem contas com saldo negativo registradas no sistema");
+        } else {
+            for (Conta a : contasNegativas) {
                 System.out.println(a);
             }
         }
     }
 
-    public void bloqueia() {
+    public static void adicionaContasNegativas() {
+        for (Conta a : contasCorrente) {
+            if (a.getSaldo() < 0) {
+                contasNegativas.add(a);
+                System.out.println(a);
 
+            }
+        }
     }
+
 
 }

@@ -18,10 +18,10 @@ public abstract class Conta {
     private static ArrayList<Transacao> listaTransacoesBanco = new ArrayList<>();
     private static ArrayList<Integer> listaNumerosConta = new ArrayList<Integer>();
 
-    public Conta(String nome, String cpf, double rendaMensal, String agencia, double saldo) {
+    public Conta(String nome, String cpf1, double rendaMensal, String agencia, double saldo) {
         this.nome = nome;
-        if (validarCPF(cpf)) {
-            this.cpf = cpf;
+        if (validarCPF(cpf1)) {
+            this.cpf = cpf1;
         } else {
             solicitarCPF();
         }
@@ -38,57 +38,42 @@ public abstract class Conta {
         listaNumerosConta.add(this.numeroConta);
     }
 
-    public boolean validarCPF(String CPF) {
-        if (CPF.equals("00000000000") || CPF.equals("11111111111") || CPF.equals("22222222222")
-                || CPF.equals("33333333333") || CPF.equals("44444444444") || CPF.equals("55555555555")
-                || CPF.equals("66666666666") || CPF.equals("77777777777") || CPF.equals("88888888888")
-                || CPF.equals("99999999999") || (CPF.length() != 11)) {
+    public boolean validarCPF(String cpf){
+        int soma,d1,d2;
+        try {
+        if(cpf.length()!=11){
+            return false;
+        }
+            ArrayList<Integer> cpfArrayList = new ArrayList<>();
+            for(int i = 0;i<cpf.length();i++){
+                cpfArrayList.add(Integer.parseInt(cpf.substring(i,i+1)));
+            }
+            soma = 0;
+            for (int i = 0; i < 9; i++) {
+                soma += cpfArrayList.get(i) * (10 - i);
+            }
+            d1 = 11 - (soma%11);
+            if(d1>9){
+                d1 = 0;
+            }
+            soma = 0;
+            for (int i = 0; i < 10; i++) {
+                soma += cpfArrayList.get(i) * (11 - i);
+            }
+
+            d2 = 11 - (soma%11);
+            if(d2>9){
+                d2 = 0;
+            }
+
+            if ((d1 == cpfArrayList.get(9)) && (d2 == cpfArrayList.get(10))) {
+            return (true);
+            } else {
             return (false);
-        } else {
-
-            char d10, d11;
-            int soma, i, r, num, peso;
-
-            try {
-                soma = 0;
-                peso = 10;
-                for (i = 0; i < 9; i++) {
-                    num = (int) (CPF.charAt(i) - 48);
-                    soma = soma + (num * peso);
-                    peso = peso - 1;
-                }
-
-                r = 11 - (soma % 11);
-                if ((r == 10) || (r == 11)) {
-                    d10 = '0';
-                } else {
-                    d10 = (char) (r + 48);
-                }
-
-                soma = 0;
-                peso = 11;
-                for (i = 0; i < 10; i++) {
-                    num = (int) (CPF.charAt(i) - 48);
-                    soma = soma + (num * peso);
-                    peso = peso - 1;
-                }
-
-                r = 11 - (soma % 11);
-                if ((r == 10) || (r == 11)) {
-                    d11 = '0';
-                } else {
-                    d11 = (char) (r + 48);
-                }
-
-                if ((d10 == CPF.charAt(9)) && (d11 == CPF.charAt(10))) {
-                    return (true);
-                } else {
-                    return (false);
-                }
+            }
             } catch (InputMismatchException ERRO) {
                 return (false);
             }
-        }
     }
 
     public void solicitarCPF() {
@@ -118,6 +103,8 @@ public abstract class Conta {
         }
     }
 
+
+
     public void solicitarAgencia() {
         Scanner sc = new Scanner(System.in);
         boolean agenciaInvalida = true;
@@ -136,14 +123,17 @@ public abstract class Conta {
     public void saque(double decremento) {
         if (this instanceof ContaInvestimento && decremento > 0){
             this.saldo = this.saldo - decremento;
+            System.out.printf("Foi investido o valor de : R$ %.2f\n",decremento);
             Transacao i = new Transacao("investimento", this.cpf, this.cpf, decremento);
             listaTransacoesCliente.add(i);
             listaTransacoesBanco.add(i);
+
         } else if (decremento <= (this.saldo + getLimite())) {
             this.saldo = this.saldo - decremento;
             Transacao s = new Transacao("saque", this.cpf, this.cpf, decremento);
             listaTransacoesCliente.add(s);
             listaTransacoesBanco.add(s);
+            System.out.printf("Foi sacado o valor de : R$ %.2f\n",decremento);
         } else if (decremento < 0) {
             System.out.println("Valor invalido");
         } else {
@@ -159,6 +149,7 @@ public abstract class Conta {
             Transacao d = new Transacao("deposito", this.cpf, this.cpf, incremento);
             listaTransacoesCliente.add(d);
             listaTransacoesBanco.add(d);
+            System.out.printf("Foi depositado o valor de : R$ %.2f\n",incremento);
         } else {
             System.out.println("Valor invalido");
         }
@@ -169,6 +160,7 @@ public abstract class Conta {
             this.saldo = this.saldo - valorTransferencia;
             c2.saldo = c2.saldo + valorTransferencia;
             Transacao t = new Transacao("transferencia", this.cpf, c2.cpf, valorTransferencia);
+            System.out.printf("Foi transferido o valor de : R$ %.2f para a conta %d\n",valorTransferencia,c2.numeroConta);
             this.listaTransacoesCliente.add(t);
             c2.listaTransacoesCliente.add(t);
             listaTransacoesBanco.add(t);
@@ -179,11 +171,11 @@ public abstract class Conta {
         }
     }
 
-    public void alteraDados(String nome, String cpf, double rendaMensal, String agencia) {
-        this.nome = nome;
-        this.rendaMensal = rendaMensal;
-        if (validarAgencia(agencia)) {
-            this.agencia = agencia;
+    public void alteraDados(String nomeNovo, double rendaMensalNova, String agenciaNova) {
+        this.nome = nomeNovo;
+        this.rendaMensal = rendaMensalNova;
+        if (validarAgencia(agenciaNova)) {
+            this.agencia = agenciaNova;
         } else {
             solicitarAgencia();
         }

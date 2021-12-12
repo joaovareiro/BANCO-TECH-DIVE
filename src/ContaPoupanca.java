@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class ContaPoupanca extends Conta{
-    private static ArrayList<Conta> contasPoupanca = new ArrayList<>();
+    private static ArrayList<ContaPoupanca> contasPoupanca = new ArrayList<>();
 
 
 
@@ -24,6 +24,14 @@ public class ContaPoupanca extends Conta{
     public void simulacao(double capitalInicial, double taxaJuros, float tempoMeses){
         double montante = capitalInicial*Math.pow((1+taxaJuros),tempoMeses);
         System.out.printf("O montante será %.2f", montante);
+    }
+
+    public static ContaPoupanca procuraContaPoupanca(int id) {
+        for (ContaPoupanca a : contasPoupanca) {
+            if(getNumeroConta(a)==id)
+                return a;
+        }
+        return null;
     }
 
     public static void listaContasPoupanca(){

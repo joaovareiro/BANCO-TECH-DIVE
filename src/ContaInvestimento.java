@@ -49,7 +49,13 @@ public class ContaInvestimento extends Conta {
     }
 
     public static double getValorInvestidoTotal(ContaInvestimento a) {
-        return a.valorInvestidoTotal;
+        double retorno = 0;
+        if(a.valorInvestidoTotal == 0){
+            System.out.println("Nao foram encontrados investimentos nessa conta");
+        }else{
+        retorno =  a.valorInvestidoTotal;
+        }
+        return retorno;
     }
 
     public static ContaInvestimento procuraContaInvestimento(int id) {

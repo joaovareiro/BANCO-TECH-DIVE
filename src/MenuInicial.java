@@ -17,7 +17,9 @@ public abstract class MenuInicial {
         if (op == 1) {
             MenuCriacao.menuCriacao();
         }else if(op == 2) {
-            MenuOperacoes.login();
+            System.out.println("Insira o numero da conta que vai ser acessada");
+            int id = sc.nextInt();
+            MenuOperacoes.login(id);
         }else if (op ==3 ){
             MenuRelatorios.menuRelatorios();
         }else if (op == 4){
