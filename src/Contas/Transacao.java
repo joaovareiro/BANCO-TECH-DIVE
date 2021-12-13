@@ -1,3 +1,5 @@
+package Contas;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,8 +13,7 @@ public class Transacao {
     @Override
     public String toString() {
 
-        return "Transacao " +
-                "tipo = '" + tipo + '\'' +
+        return "tipo = '" + tipo + '\'' +
                 ", data = '" + data + '\'' +
                 ", contaOrigem = '" + contaOrigem + '\'' +
                 ", contaDestino = '" + contaDestino + '\'' +

@@ -1,3 +1,9 @@
+import Contas.Conta;
+import Contas.ContaCorrente;
+import Contas.ContaInvestimento;
+import Contas.ContaPoupanca;
+import Menus.MenuInicial;
+
 public class Main {
     public static void main(String[] args) {
         ContaCorrente cc1 = new ContaCorrente("Sophie Giovanna Caroline dos Santos", "96356223090", 1500.00, "001", 3445.79);

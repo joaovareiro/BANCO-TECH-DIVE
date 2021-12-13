@@ -1,3 +1,5 @@
+package Contas;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -134,7 +136,7 @@ public abstract class Conta {
 
 
     public int saqueInvestimento(double decremento) {
-        if (this instanceof ContaInvestimento && (decremento > 0) && (decremento < this.saldo)) {
+        if (this instanceof ContaInvestimento && (decremento > 0) && (decremento <= this.saldo)) {
             this.saldo = this.saldo - decremento;
             System.out.printf("Foi investido o valor de : R$ %.2f\n", decremento);
             Transacao i = new Transacao("investimento", this.cpf, this.cpf, decremento);
@@ -281,4 +283,5 @@ public abstract class Conta {
         }
     }
 }
+
 

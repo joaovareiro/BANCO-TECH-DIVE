@@ -1,7 +1,13 @@
+package Menus;
+
+import Contas.Conta;
+import Contas.ContaPoupanca;
+
 import java.util.Scanner;
-public class MenuOperacoesCorrente {
+
+public class MenuOperacoesPoupanca {
     static Scanner sc = new Scanner(System.in);
-    public static void menuOperacoesCorrente(ContaCorrente a) {
+    public static void menuOperacoesPoupanca(ContaPoupanca a) {
         int op;
         while (true) {
             System.out.println("""
@@ -11,9 +17,10 @@ public class MenuOperacoesCorrente {
                     3 - Realizar transferencia
                     4 - Realizar extrato
                     5 - Alterar dados cadastrais
-                    6 - Voltar para o menu inicial""");
+                    6 - Realizar simulacao
+                    7 - Voltar para o menu inicial""");
             op = sc.nextInt();
-            if(op == 6){
+            if(op == 7){
                 break;
             }else if (op == 1) {
                 System.out.println("Insira o valor a ser sacado:");
@@ -46,7 +53,15 @@ public class MenuOperacoesCorrente {
                 sc.nextLine();
                 String novaAgencia = sc.nextLine();
                 a.alteraDados(novoNome,novaRendaMensal,novaAgencia);
+            } else if (op == 6) {
+                System.out.println("Insira o capital inicial");
+                double ci = sc.nextDouble();
+                System.out.println("Insira a taxa");
+                double taxa = sc.nextDouble();
+                System.out.println("Insira a quantidade de meses");
+                int mes = sc.nextInt();
+                a.simulacao(ci,taxa,mes);
+            }
             }
         }
     }
-}

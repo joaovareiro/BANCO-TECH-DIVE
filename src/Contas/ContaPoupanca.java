@@ -1,6 +1,8 @@
+package Contas;
+
 import java.util.ArrayList;
 
-public class ContaPoupanca extends Conta{
+public class ContaPoupanca extends Conta {
     private static ArrayList<ContaPoupanca> contasPoupanca = new ArrayList<>();
 
 
@@ -28,7 +30,7 @@ public class ContaPoupanca extends Conta{
 
     public static ContaPoupanca procuraContaPoupanca(int id) {
         for (ContaPoupanca a : contasPoupanca) {
-            if(getNumeroConta(a)==id)
+            if(Conta.getNumeroConta(a)==id)
                 return a;
         }
         return null;

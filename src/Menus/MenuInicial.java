@@ -1,3 +1,7 @@
+package Menus;
+
+import Menus.MenuCriacao;
+
 import java.util.Scanner;
 
 public abstract class MenuInicial {

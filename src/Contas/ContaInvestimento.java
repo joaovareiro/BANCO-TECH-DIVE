@@ -1,6 +1,5 @@
+package Contas;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,7 +36,7 @@ public class ContaInvestimento extends Conta {
 
     public void calcularInvestimento(double valorInvestido, double taxa) {
         double rendimentoAnual = valorInvestido * (taxa * 12);
-        System.out.printf("Daqui a um ano se dinheiro ira valer : %.2f\n", rendimentoAnual + valorInvestido);
+        System.out.printf("Daqui a um ano seu dinheiro ira valer : %.2f\n", rendimentoAnual + valorInvestido);
     }
 
 
@@ -65,7 +64,7 @@ public class ContaInvestimento extends Conta {
 
     public static ContaInvestimento procuraContaInvestimento(int id) {
         for (ContaInvestimento a : contasInvestimento) {
-            if(getNumeroConta(a)==id)
+            if(Conta.getNumeroConta(a)==id)
                 return a;
         }
         return null;

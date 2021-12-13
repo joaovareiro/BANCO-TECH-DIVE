@@ -1,5 +1,6 @@
+package Contas;
+
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class ContaCorrente extends Conta {
 
@@ -9,10 +10,10 @@ public class ContaCorrente extends Conta {
 
     @Override
     public String toString() {
-        return "Conta Corrente "+"nome:" + this.getNome() +
+        return "Conta Corrente " + "nome:" + this.getNome() +
                 ", cpf:" + this.getCpf() +
                 ", rendaMensal: " + this.getRendaMensal() +
-                ", numeroConta: " + getNumeroDaConta()  +
+                ", numeroConta: " + getNumeroDaConta() +
                 ", agencia: " + this.getAgencia() +
                 ", saldo: " + this.getSaldo() +
                 ", limite: " + this.getLimite();
@@ -27,7 +28,7 @@ public class ContaCorrente extends Conta {
 
     public static ContaCorrente procuraContaCorrente(int id) {
         for (ContaCorrente a : contasCorrente) {
-            if(getNumeroConta(a)==id)
+            if (getNumeroConta(a) == id)
                 return a;
         }
         return null;
@@ -47,6 +48,7 @@ public class ContaCorrente extends Conta {
             }
         }
     }
+
     public static void listaContasNegativas() {
         ContaCorrente.adicionaContasNegativas();
         if (contasNegativas.isEmpty()) {
@@ -65,7 +67,4 @@ public class ContaCorrente extends Conta {
             }
         }
     }
-
-
-
 }

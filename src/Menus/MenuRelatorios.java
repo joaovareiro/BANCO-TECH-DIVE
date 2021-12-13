@@ -1,6 +1,14 @@
+package Menus;
+
+import Contas.Conta;
+import Contas.ContaCorrente;
+import Contas.ContaInvestimento;
+import Contas.ContaPoupanca;
+import Menus.MenuOperacoes;
+
 import java.util.Scanner;
 
-public class MenuRelatorios extends MenuOperacoes{
+public class MenuRelatorios extends MenuOperacoes {
     static Scanner sc = new Scanner(System.in);
     public static void menuRelatorios(){
         int op;
