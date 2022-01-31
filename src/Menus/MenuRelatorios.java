@@ -6,11 +6,12 @@ import Contas.ContaInvestimento;
 import Contas.ContaPoupanca;
 import Menus.MenuOperacoes;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MenuRelatorios extends MenuOperacoes {
     static Scanner sc = new Scanner(System.in);
-    public static void menuRelatorios(){
+    public static void menuRelatorios() throws IOException {
         int op;
         while (true) {
         System.out.println("""
@@ -19,7 +20,8 @@ public class MenuRelatorios extends MenuOperacoes {
                     2 - Listar contas com saldo negativo
                     3 - Listar as transacoes de uma conta
                     4 - Listar todas as transacoes do banco
-                    5 - Voltar para o menu inicial """);
+                    5 - Acessar arquivo contendo todas as contas do sistema
+                    6 - Voltar para o menu inicial """);
         op = sc.nextInt();
         if(op == 1){
             System.out.println("""
@@ -48,8 +50,12 @@ public class MenuRelatorios extends MenuOperacoes {
             int id = sc.nextInt();
             (Conta.procuraConta(id)).extratoSemSaldo();
             }else if(op == 4){
+            Conta.escreveExtratoBancoArquivo();
             Conta.listaTransacoesDoBanco();
-            }else if(op == 5){
+            } else if(op == 5){
+            Conta.escreveInfoArquivo();
+            Conta.getInfoArquivo();
+            }else if(op == 6){
             break;
             }
         }

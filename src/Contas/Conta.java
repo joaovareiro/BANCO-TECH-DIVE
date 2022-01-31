@@ -1,5 +1,6 @@
 package Contas;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -250,6 +251,19 @@ public abstract class Conta {
         }
     }
 
+    public static void escreveExtratoBancoArquivo() throws IOException {
+        try (OutputStream fos = new FileOutputStream("Extrato.txt");
+             Writer osw = new OutputStreamWriter(fos);
+             BufferedWriter bw = new BufferedWriter(osw)) {
+            for (Transacao a : Conta.getListaTransacoesBanco()) {
+                bw.write(a.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void historicoTransacoesBanco() {
         Conta.extratoBanco();
     }
@@ -282,6 +296,33 @@ public abstract class Conta {
             }
         }
     }
+
+    public static void getInfoArquivo(){
+        try(FileInputStream fis = new FileInputStream("Contas.txt");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr)){
+            String linha = br.readLine();
+
+            while (linha!=null){
+                System.out.println(linha);
+                linha = br.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void escreveInfoArquivo() throws IOException {
+        try (OutputStream fos = new FileOutputStream("Contas.txt");
+             Writer osw = new OutputStreamWriter(fos);
+             BufferedWriter bw = new BufferedWriter(osw)) {
+            for (Conta a : listaContas) {
+                bw.write(getNumeroConta(a) + " " + a.getSaldo() + " " + a.getNome());
+                bw.newLine();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
-
-

@@ -1,14 +1,16 @@
 package Menus;
 
-import Menus.MenuCriacao;
+import Contas.Conta;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public abstract class MenuInicial {
     static Scanner sc= new Scanner(System.in);
-    public static void menuInicial(){
+    public static void menuInicial() throws IOException {
         int op;
         while(true) {
+            Conta.escreveInfoArquivo();
             System.out.println("-----BANCO TECH-DIVE-----");
             System.out.println("""
                     Selecione uma opcao:\s

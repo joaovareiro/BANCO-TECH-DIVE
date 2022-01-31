@@ -4,8 +4,10 @@ import Contas.ContaInvestimento;
 import Contas.ContaPoupanca;
 import Menus.MenuInicial;
 
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ContaCorrente cc1 = new ContaCorrente("Sophie Giovanna Caroline dos Santos", "96356223090", 1500.00, "001", 3445.79);
         ContaCorrente cc2 = new ContaCorrente("Bryan Kaique Duarte", "79514943058", 2000.49, "002", 4589.01);
         ContaCorrente cc3 = new ContaCorrente("Vitoria Maite Souza", "34038307808", 1500.55, "001",5480.12);
