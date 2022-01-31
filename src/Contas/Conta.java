@@ -312,17 +312,61 @@ public abstract class Conta {
         }
     }
 
+    public int getTipoConta(){
+        int retorno = 0;
+        if(this instanceof ContaCorrente){
+            retorno =  1;
+        }if(this instanceof ContaInvestimento){
+            retorno = 2;
+        }if(this instanceof ContaPoupanca){
+            retorno  = 3;
+        }
+        return retorno;
+    }
     public static void escreveInfoArquivo() throws IOException {
         try (OutputStream fos = new FileOutputStream("Contas.txt");
              Writer osw = new OutputStreamWriter(fos);
              BufferedWriter bw = new BufferedWriter(osw)) {
             for (Conta a : listaContas) {
-                bw.write(getNumeroConta(a) + " " + a.getSaldo() + " " + a.getNome());
+                StringBuffer s = new StringBuffer();
+                s.append(a.getNome());
+                s.append(";");
+                s.append(a.getCpf());
+                s.append(";");
+                s.append(a.getRendaMensal());
+                s.append(";");
+                s.append(a.getAgencia());
+                s.append(";");
+                s.append(a.getSaldo());
+                s.append(";");
+                s.append(a.getTipoConta());
+                bw.write(a.getNome() + ";" + a.getCpf() + ";" + a.getRendaMensal() + ";" + a.getAgencia() + ";" + a.getSaldo() +";" + a.getTipoConta());
+                bw.write(String.valueOf(s));
                 bw.newLine();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void criaContaPorArquivo() throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File("Contas.txt"), "UTF-8");
+        while (scanner.hasNextLine()) {
+            String linha = scanner.nextLine();
+            String[] valores = linha.split(";");
+            double rendaMensal = Double.parseDouble(valores[2]);
+            double saldo = Double.parseDouble(valores[4]);
+            switch (valores[5]) {
+                case "1":
+                    ContaCorrente cc1 = new ContaCorrente(valores[0], valores[1], rendaMensal, valores[3], saldo);
+                    break;
+                case "2":
+                    ContaInvestimento ci1 = new ContaInvestimento(valores[0], valores[1], rendaMensal, valores[3], saldo);
+                    break;
+                case "3":
+                    ContaPoupanca cp1 = new ContaPoupanca(valores[0], valores[1], rendaMensal, valores[3], saldo);
+                    break;
+            }
         }
     }
 }

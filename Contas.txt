@@ -1,9 +1,9 @@
-1 2895.79 Sophie Giovanna Caroline dos Santos
-2 5339.01 Bryan Kaique Duarte
-3 5480.12 Vitoria Maite Souza
-4 4789.14 Benjamin Nelson Castro
-5 1397.45 Vitoria Maite Souza
-6 45000.0 Yuri Rafael da Luz
-7 78910.44 Marcela Bruna Nogueira
-8 6358.15 Augusto Leandro Gustavo Gomes
-9 3410.78 Stefany Elza da Conceição
+Sophie Giovanna Caroline dos Santos;96356223090;1500.0;001;3445.79;1
+Bryan Kaique Duarte;79514943058;2000.49;002;4589.01;1
+Vitoria Maite Souza;34038307808;1500.55;001;5480.12;1
+Benjamin Nelson Castro;47047677011;2023.2;002;4789.14;3
+Vitoria Maite Souza;34038307808;1500.1;001;1397.45;3
+Yuri Rafael da Luz;79638395826;7812.45;001;45000.0;3
+Marcela Bruna Nogueira;04277482830;12450.5;001;78910.44;2
+Augusto Leandro Gustavo Gomes;07376974822;2510.0;002;6358.15;2
+Stefany Elza da Conceição;74010822767;2102.45;001;3410.78;2

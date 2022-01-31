@@ -10,7 +10,7 @@ public abstract class MenuInicial {
     public static void menuInicial() throws IOException {
         int op;
         while(true) {
-            Conta.escreveInfoArquivo();
+            Conta.criaContaPorArquivo();
             System.out.println("-----BANCO TECH-DIVE-----");
             System.out.println("""
                     Selecione uma opcao:\s
